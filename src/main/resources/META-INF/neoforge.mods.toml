@@ -12,6 +12,8 @@ description = '''
 A mod that helps visually impaired players play Minecraft.
 '''
 logoFile = "logo-mc-access.png"
+# Keep logoFile for older NeoForge versions; current versions use the square icon.
+iconFile = "logo-mc-access.png"
 modUrl = "https://modrinth.com/mod/jGzXyfdm/"
 displayURL = "https://mcaccess.org/"
 

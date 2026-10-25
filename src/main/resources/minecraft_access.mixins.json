@@ -51,7 +51,6 @@
         "OptionsMixin",
         "RecipeBookComponentAccessor",
         "RecipeBookPageAccessor",
-        "RecipeBookPageMixin",
         "RecipeButtonMixin",
         "ScreenAccessor",
         "SingleItemRecipeAccessor",

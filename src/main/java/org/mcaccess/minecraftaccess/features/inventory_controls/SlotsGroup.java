@@ -137,4 +137,8 @@ public class SlotsGroup {
         String translation = groupName == null || Language.getInstance().has(key) ? I18n.get(key) : groupName;
         return index == null ? translation : String.format("%s %d", translation, index);
     }
+
+    public boolean isRecipeGroup() {
+        return groupKey.equals("recipes");
+    }
 }

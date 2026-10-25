@@ -80,6 +80,7 @@ See also: [Feature Description]({{% relref "/features#mouse-simulation" %}}),
 `Switching Tabs`, `Toggling Craftable`, `Jumping to Textbox` and `Enter` keys only works when there is a corresponding
 component in the opened screen.
 Recipe Book page turning only works when `Recipe Book Group` is selected.
+Moving beyond the top or bottom recipe row with `I` or `K` also changes the page automatically.
 Search on the [wiki] for the description of screens if you're not familiar with them.
 
 See also: [Feature Description]({{% relref "/features#inventory-controls" %}}),

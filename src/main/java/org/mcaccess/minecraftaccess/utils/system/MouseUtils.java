@@ -1,7 +1,5 @@
 package org.mcaccess.minecraftaccess.utils.system;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import com.mojang.blaze3d.platform.InputConstants;
@@ -37,15 +35,6 @@ public final class MouseUtils {
         log.debug("Move mouse to x:{} y:{}", xpos, ypos);
         SDLMouse.SDL_WarpMouseInWindow(getWindowPointer(), (float) xpos, (float) ypos);
         Minecraft.getInstance().mouseHandler.onMove(getWindowPointer(), xpos, ypos, 0.0, 0.0);
-    }
-
-    public static void moveAfterDelay(double xpos, double ypos, int delayInMillSecs) {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                move(xpos, ypos);
-            }
-        }, delayInMillSecs);
     }
 
     public static Coordinates calcRealPositionOfWidget(double x, double y) {

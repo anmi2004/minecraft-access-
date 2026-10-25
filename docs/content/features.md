@@ -108,17 +108,21 @@ When you try to place items in an occupied slot,
 it will instead swap with the items already in the slot,
 resulting in the items in the slot being placed onto your cursor.
 
+The focused slot and the currently displayed recipe result are narrated directly without moving the mouse.
+When several results share one recipe button, such as different plank types, each displayed result is narrated when it
+changes.
+
+In the recipe book:
+
+- Moving past the top or bottom row with `I` or `K` automatically changes the recipe page.
+- Moving past the left or right edge with `J` or `L` only reports that there is no slot in that direction.
+- `Shift` + `I` and `Shift` + `K` remain available for explicit page changes.
+
 Please note that:
 
-1. Item speaking in `Scrollable Recipes Group` under the `Crafting Screen` will be delayed about one second,
-   please wait after pressing the move slot key to hear the item name.
-2. In the `Scrollable Recipes Group` on the `Crafting Screen`, except the first page,
-   sometimes you will hear nothing while you're moving between slots.
-   It's best to keep items you want to craft within the first page of the recipe book by moving unused items out of your
-   inventory.
-3. After you put things into an [Anvil], the cursor will be automatically focused onto the rename input text field,
+1. After you put things into an [Anvil], the cursor will be automatically focused onto the rename input text field,
    all you need to do is press the `Enter` key to go back to slot selection.
-4. Servers will build custom inventory screens to serve as special option menus,
+2. Servers will build custom inventory screens to serve as special option menus,
    some servers like hypixel will continuously change the option (item) names,
    which will cause this mod to continuously speak the changed item name.
    Disable the `Speak Focused Slot Changes` config to solve this problem.

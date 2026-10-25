@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.LoomScreen;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.client.gui.screens.inventory.StonecutterScreen;
+import net.minecraft.client.gui.screens.recipebook.RecipeButton;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.block.entity.BannerPattern;
+import org.jetbrains.annotations.Nullable;
 
 import org.mcaccess.minecraftaccess.mixin.LoomScreenAccessor;
 import org.mcaccess.minecraftaccess.mixin.MerchantScreenAccessor;
@@ -37,6 +39,8 @@ public class SlotItem {
     public int y;
 
     public Slot slot = null;
+
+    public @Nullable RecipeButton recipeButton = null;
 
     private int recipeOrTradeIndex;
 
@@ -69,6 +73,12 @@ public class SlotItem {
         this.y = y;
     }
 
+    public SlotItem(int x, int y, RecipeButton recipeButton) {
+        this.x = x;
+        this.y = y;
+        this.recipeButton = recipeButton;
+    }
+
     public SlotItem(int x, int y, String text) {
         this.x = x;
         this.y = y;
@@ -76,6 +86,10 @@ public class SlotItem {
     }
 
     public String getNarratableText() {
+        if (recipeButton != null) {
+            return RecipeBookNarration.describe(recipeButton);
+        }
+
         if (Minecraft.getInstance().gui.screen() instanceof LoomScreen loomScreen) {
             List<Holder<BannerPattern>> list = loomScreen.getMenu().getSelectablePatterns();
             if (list.isEmpty()) return "";

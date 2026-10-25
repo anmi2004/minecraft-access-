@@ -18,4 +18,10 @@ public interface RecipeBookPageAccessor {
 
     @Accessor
     ImageButton getBackButton();
+
+    @Accessor
+    int getCurrentPage();
+
+    @Accessor
+    int getTotalPages();
 }

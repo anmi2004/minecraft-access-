@@ -89,7 +89,7 @@ See also: [Feature Description]({{% relref "/features#partial-speaking" %}})
 | book on opening the inventory (in creative/survival inventory screen and crafting screen) |               |                                                                                                                                                                    |
 | Row and Column Format in Crafting Input Slots                                             | `%dx%d`       | The speaking format of row and column prefix, two `%d` are representing the position of row and column                                                             |
 | Speak Focused Slot Changes                                                                | true          | Speak if the content of focused slot changes, close it if you hear the mod is continuously repeating changes of item name, some mods like Hypixel will cause that. |
-| Delay (in milliseconds)                                                                   | 250           | Cooldown between two feature executions                                                                                                                            |
+| Background Refresh Delay (in milliseconds)                                                | 150           | Refresh interval for inventory groups and focused-slot content; navigation responses are event-driven and are not delayed by this value                          |
 
 Most recipes [require][crafting] their ingredients to be arranged in a specific way on the crafting grid
 (a.k.a. our crafting input group).

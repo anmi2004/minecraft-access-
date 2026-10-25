@@ -13,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 
 import org.mcaccess.minecraftaccess.Config;
 import org.mcaccess.minecraftaccess.MainClass;
+import org.mcaccess.minecraftaccess.features.inventory_controls.CursorActionSequence;
+import org.mcaccess.minecraftaccess.features.inventory_controls.InventoryControls;
 import org.mcaccess.minecraftaccess.utils.KeyMappingCategories;
 import org.mcaccess.minecraftaccess.utils.system.MouseUtils;
 
@@ -26,6 +28,9 @@ public class MouseSimulation implements BalmClientModule {
     private static ManagedKeyMapping keyRightMouseButton;
 
     private final Config.MouseSimulation config = Config.getInstance().mouseSimulation;
+    private final CursorActionSequence leftAction = new CursorActionSequence();
+    private final CursorActionSequence middleAction = new CursorActionSequence();
+    private final CursorActionSequence rightAction = new CursorActionSequence();
     private long lastScrollUpTime = 0;
     private long lastScrollDownTime = 0;
 
@@ -107,21 +112,21 @@ public class MouseSimulation implements BalmClientModule {
      */
     private void tick(Minecraft client) {
         if (keyLeftMouseButton.isDown() && !keyLeftMouseButton.wasDown()) {
-            MouseUtils.Key.LEFT.press();
+            leftAction.begin(InventoryControls::syncFocusedCursorForMouseAction, MouseUtils.Key.LEFT::press);
         } else if (!keyLeftMouseButton.isDown() && keyLeftMouseButton.wasDown()) {
-            MouseUtils.Key.LEFT.release();
+            leftAction.end(MouseUtils.Key.LEFT::release);
         }
 
         if (keyMiddleMouseButton.isDown() && !keyMiddleMouseButton.wasDown()) {
-            MouseUtils.Key.MIDDLE.press();
+            middleAction.begin(InventoryControls::syncFocusedCursorForMouseAction, MouseUtils.Key.MIDDLE::press);
         } else if (!keyMiddleMouseButton.isDown() && keyMiddleMouseButton.wasDown()) {
-            MouseUtils.Key.MIDDLE.release();
+            middleAction.end(MouseUtils.Key.MIDDLE::release);
         }
 
         if (keyRightMouseButton.isDown() && !keyRightMouseButton.wasDown()) {
-            MouseUtils.Key.RIGHT.press();
+            rightAction.begin(InventoryControls::syncFocusedCursorForMouseAction, MouseUtils.Key.RIGHT::press);
         } else if (!keyRightMouseButton.isDown() && keyRightMouseButton.wasDown()) {
-            MouseUtils.Key.RIGHT.release();
+            rightAction.end(MouseUtils.Key.RIGHT::release);
         }
     }
 

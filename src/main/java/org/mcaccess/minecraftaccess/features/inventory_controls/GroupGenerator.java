@@ -17,7 +17,6 @@ import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.client.gui.screens.inventory.StonecutterScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeButton;
-import net.minecraft.client.gui.screens.recipebook.RecipeCollection;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -61,12 +60,6 @@ import org.mcaccess.minecraftaccess.mixin.SlotAccessor;
 import org.mcaccess.minecraftaccess.mixin.StonecutterScreenAccessor;
 
 public final class GroupGenerator {
-
-    /**
-     * Saved by RecipeBookPageMixin.
-     */
-    public static List<RecipeCollection> recipesOnTheScreen;
-
     private GroupGenerator() {
     }
 
@@ -696,11 +689,12 @@ public final class GroupGenerator {
         SlotsGroup recipesGroup = new SlotsGroup("recipes", null);
         List<RecipeButton> slots = ((RecipeBookPageAccessor) recipeBookComponentAccessor.getRecipeBookPage()).getButtons();
 
-        for (int i = 0; i < slots.size() && i < recipesOnTheScreen.size(); i++) {
-            RecipeButton animatedResultButton = slots.get(i);
+        for (RecipeButton animatedResultButton : slots) {
+            if (!animatedResultButton.visible) continue;
+
             int realX = animatedResultButton.getX() - screen.getLeftPos() + 10;
             int realY = animatedResultButton.getY() - screen.getTopPos() + 10;
-            recipesGroup.slotItems.add(new SlotItem(realX, realY));
+            recipesGroup.slotItems.add(new SlotItem(realX, realY, animatedResultButton));
         }
 
         if (!recipesGroup.slotItems.isEmpty()) {

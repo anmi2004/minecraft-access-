@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import org.mcaccess.minecraftaccess.MainClass;
+import org.mcaccess.minecraftaccess.features.inventory_controls.InventoryControls;
 import org.mcaccess.minecraftaccess.utils.condition.Interval;
-import org.mcaccess.minecraftaccess.utils.system.MouseUtils;
 
 @Mixin(RecipeButton.class)
 abstract class RecipeButtonMixin {
@@ -22,8 +22,6 @@ abstract class RecipeButtonMixin {
     @Shadow
     private RecipeCollection collection;
     @Unique
-    private boolean vibratingFlag = false;
-    @Unique
     private String previousItemName = "";
 
     @Shadow
@@ -31,6 +29,11 @@ abstract class RecipeButtonMixin {
 
     @Inject(method = "updateWidgetNarration", at = @At("HEAD"), cancellable = true)
     private void updateWidgetNarrationsMixin(CallbackInfo ci) {
+        if (InventoryControls.ownsRecipeNarration((RecipeButton) (Object) this)) {
+            ci.cancel();
+            return;
+        }
+
         ItemStack itemStack = getDisplayStack();
         String itemName = itemStack.getHoverName().getString();
 
@@ -48,24 +51,6 @@ abstract class RecipeButtonMixin {
             interval.reset();
         }
 
-        shakeTheMouse();
         ci.cancel();
-    }
-
-    /**
-     * It seems the "appendNarrations" will be invoked after every mouse moving.
-     * Keep moving the mouse to trigger this method to read different items in same animated button.
-     * It's not a solution that gets to the root of the problem, but I think it's simpler and more stable.
-     * This method doesn't affect slot moving inside recipe book group.
-     */
-    @Unique
-    private void shakeTheMouse() {
-        // the width and height of one animated button are both 25.
-        int offset = vibratingFlag ? 12 : 13;
-        int x = ((AbstractWidgetAccessor) this).callGetX() + offset;
-        int y = ((AbstractWidgetAccessor) this).callGetY() + offset;
-        MouseUtils.Coordinates p = MouseUtils.calcRealPositionOfWidget(x, y);
-        MouseUtils.move(p.x(), p.y());
-        vibratingFlag = !vibratingFlag;
     }
 }
